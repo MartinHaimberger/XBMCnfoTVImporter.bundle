@@ -6,8 +6,24 @@
     "default":"false"
   },
   {
-    "id":"fround",
-    "label":"enable rounding of floating point ratings\n__________________________________________________________________________________________",
+    "id":"localmediaagent",
+    "label":"disable agents artwork support (use local media assets instead)",
+    "type":"bool",
+    "default":"false"
+  },
+  {
+    "id":"assetslocation",
+    "label":"agents artwork location",
+    "type": "enum",
+    "values": [
+      "local",
+      "link",
+    ],
+    "default": "local"
+  },
+  {
+    "id":"dayfirst",
+    "label":"enable day first in ambiguous dates",
     "type":"bool",
     "default":"false"
   },
@@ -15,13 +31,13 @@
     "id":"beforerating",
     "label":"text before rating (supports html specialchars!):",
     "type":"text",
-    "default":"&#9733; ",
+    "default":"&#9733; "
   },
   {
     "id":"afterrating",
     "label":"text after rating (supports html specialchars!):",
     "type":"text",
-    "default":" | ",
+    "default":" | "
   },
   {
     "id":"preserverating",
@@ -30,16 +46,22 @@
     "default":"false"
   },
   {
+    "id":"statusinsummary",
+    "label":"show status (ended/continuing) in front of summary\n__________________________________________________________________________________________",
+    "type":"bool",
+    "default":"false"
+  },
+  {
     "id":"beforeratingep",
     "label":"text before episode rating (supports html specialchars!):",
     "type":"text",
-    "default":"&#9733; ",
+    "default":"&#9733; "
   },
   {
     "id":"afterratingep",
     "label":"text after episode rating (supports html specialchars!):",
     "type":"text",
-    "default":" | ",
+    "default":" | "
   },
   {
     "id":"preserveratingep",
@@ -51,7 +73,7 @@
     "id":"ratings",
     "label":"Restrict additional ratings to identifiers separated by comma (eg: IMDb, RT). If left empty all ratings found will be included.",
     "type":"text",
-    "default":"",
+    "default":""
   },
   {
     "id":"ratingspos",
@@ -59,26 +81,43 @@
     "type": "enum",
     "values": [
       "front",
-      "back",
+      "back"
     ],
     "default": "back"
   },
   {
     "id":"altratings",
-    "label":"enable additional ratings support\n__________________________________________________________________________________________",
+    "label":"enable additional ratings support",
     "type":"bool",
     "default":"false"
   },
   {
-    "id":"datestring",
-    "label":"format directive (see http://strftime.org/,* will match -,/ and .) %Y*%m*%d will match 2009-12-17, 2009/12/17 and 2009.12.17 but not 2009-17-12. %Y-%d-%m will only match 2009-17-12. Keep the dates in the .nfo files uniform! If year, month and day are switched around between .nfos, recognition will fail.",
+    "id":"athumblocation",
+    "label":"actor thumb location",
+    "type": "enum",
+    "values": [
+      "link",
+      "local",
+      "global"
+    ],
+    "default": "link"
+  },
+  {
+    "id":"athumbpath",
+    "label":"path to tv show library or global actor folder",
     "type":"text",
-    "default":"%Y*%m*%d",
+    "default":"http://localhost"
   },
   {
-    "id":"correctdate",
-    "label":"use above directive to correct false date recognition",
+    "id":"multEpisodePlexPatch",
+    "label":"Combine multiple episodes infos. (File naming for multiple episodes must differ from plex naming convention to remove/hide latter episodes from Plex scanner! (e.g. S01E01-02 instead of S01E01-E02))",
     "type":"bool",
     "default":"false"
+  },
+  {
+    "id":"multEpisodeTitleSeparator",
+    "label":"Multi episode title separator:",
+    "type":"text",
+    "default":" : "
   }
 ]
