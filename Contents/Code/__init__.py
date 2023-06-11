@@ -444,9 +444,9 @@ class xbmcnfotv(Agent.TV_Shows):
 				# Content Rating
 				try:
 					mpaa = nfoXML.xpath('./mpaa')[0].text
-					match = re.match(r'(?:Rated\s)?(?P<mpaa>[A-z0-9-+/.]+(?:\s[0-9]+[A-z]?)?)?', mpaa)
+					match = re.match(r'(?:Rated\s)?(?P<mpaa>[A-z0-9-+/.:]+(?:\s[0-9]+[A-z]?)?)?', mpaa)
 					if match.group('mpaa'):
-						content_rating = match.group('mpaa')
+						content_rating = match.group('mpaa').replace(':','/').replace('DK','dk') #Plex wants : as / and DK as dk
 					else:
 						content_rating = 'NR'
 					metadata.content_rating = content_rating
@@ -656,7 +656,7 @@ class xbmcnfotv(Agent.TV_Shows):
 							newrole.role = role
 						rroles.append (newrole.role)
 					except:
-						newrole.role = 'Unknown Role ' + str(n)
+						#newrole.role = 'Unknown Role ' + str(n) #this is not needed, and doesn't provide usefull information in Plex
 						pass
 					newrole.photo = ''
 					athumbloc = Prefs['athumblocation']
@@ -817,6 +817,9 @@ class xbmcnfotv(Agent.TV_Shows):
 								fileExtension = path1.split(".")[-1]
 
 								nfoFile = path1.replace('.'+fileExtension, '.nfo')
+								# Handling stacked files: part#, cd#, dvd#, pt#, disk#, disc#
+								nfoFile = re.sub(r'[.-]?(part|cd|dvd|pt|disk|disc)\d', '', nfoFile, flags = re.IGNORECASE )
+								
 								self.DLog("Looking for episode NFO file " + nfoFile)
 								if os.path.exists(nfoFile):
 									self.DLog("File exists...")
@@ -903,9 +906,9 @@ class xbmcnfotv(Agent.TV_Shows):
 										# Ep. Content Rating
 										try:
 											mpaa = nfoXML.xpath('./mpaa')[0].text
-											match = re.match(r'(?:Rated\s)?(?P<mpaa>[A-z0-9-+/.]+(?:\s[0-9]+[A-z]?)?)?', mpaa)
+											match = re.match(r'(?:Rated\s)?(?P<mpaa>[A-z0-9-+/.:]+(?:\s[0-9]+[A-z]?)?)?', mpaa)
 											if match.group('mpaa'):
-												content_rating = match.group('mpaa')
+												content_rating = match.group('mpaa').replace(':','/').replace('DK','dk') #Plex wants : as / and DK as dk
 											else:
 												content_rating = 'NR'
 											episode.content_rating = content_rating
